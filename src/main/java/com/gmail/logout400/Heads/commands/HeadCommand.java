@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class HeadCommand implements CommandExecutor {
 
@@ -29,14 +28,14 @@ public class HeadCommand implements CommandExecutor {
                 SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
-            player.getInventory().addItem(new ItemStack[]{SimpleSkull.getNamedSkull(nick)});
+            player.getInventory().addItem(SimpleSkull.getNamedSkull(nick));
             SimpleSkull.sendMessage(sender, msgs.headAdded.replaceAll("%head%", "&7" + player.getName() + "&a"));
         } else if (args.length == 1) {
             if (!player.hasPermission("heads.addnamed")) {
                 SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
-            player.getInventory().addItem(new ItemStack[]{SimpleSkull.getNamedSkull(args[0])});
+            player.getInventory().addItem(SimpleSkull.getNamedSkull(args[0]));
             SimpleSkull.sendMessage(sender, msgs.headAdded.replaceAll("%head%", "&7" + args[0] + "&a"));
         } else if (args.length == 2) {
             if (!player.hasPermission("heads.give")) {
@@ -48,7 +47,7 @@ public class HeadCommand implements CommandExecutor {
                 SimpleSkull.sendMessage(sender, msgs.playerOffline.replaceAll("%player%", "&e" + args[1] + "&c"));
                 return true;
             }
-            get.getInventory().addItem(new ItemStack[]{SimpleSkull.getNamedSkull(args[0])});
+            get.getInventory().addItem(SimpleSkull.getNamedSkull(args[0]));
             SimpleSkull.sendMessage(get, msgs.headReceived.replaceAll("%owner%", "&7" + args[0] + "&a"));
             SimpleSkull.sendMessage(sender, msgs.headGiven.replaceAll("%player%", "&7" + get.getName() + "&a"));
         }
