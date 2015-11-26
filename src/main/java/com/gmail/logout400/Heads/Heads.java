@@ -59,8 +59,6 @@ public class Heads extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new SkullDropListener(), this);
         getServer().getPluginManager().registerEvents(new SkullBreakListener(), this);
-
-        boolean updateCheck = this.config.getBoolean("update-check");
     }
 
     public String getVersion() {
