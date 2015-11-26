@@ -3,6 +3,10 @@ package com.gmail.logout400.Heads.commands;
 import com.gmail.logout400.Heads.Config;
 import com.gmail.logout400.Heads.Heads;
 import com.gmail.logout400.Heads.SimpleSkull;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +33,7 @@ public class HeadsCommand implements CommandExecutor {
             SimpleSkull.sendMessage(sender, "&7/heads nick &e- &askin owner of skull you are looking at.");
             SimpleSkull.sendMessage(sender, "&7/heads version &e- &ashows you plugin version.");
             SimpleSkull.sendMessage(sender, "&7/heads reload &e- &areloads plugin files.");
-            SimpleSkull.customMessage(sender, "&e-------------------[ &b&lby Logout400&r&e ]------------------");
+            SimpleSkull.customMessage(sender, "&e-------------------[ &b&lSamistine Network&r&e ]------------------");
         } else if (args[0].equalsIgnoreCase("version")) {
             if (!sender.hasPermission("heads.version")) {
                 SimpleSkull.sendMessage(sender, msgs.permissions);
@@ -54,7 +58,9 @@ public class HeadsCommand implements CommandExecutor {
                 SimpleSkull.sendMessage(sender, msgs.consoleSender);
                 return true;
             }
-            Block block = ((Player) sender).getTargetBlock(null, 200);
+            Set materials = new HashSet<>(1);
+            materials.add(Material.AIR);
+            Block block = ((Player) sender).getTargetBlock(materials, 200);
             String owner = SimpleSkull.getSkullBlockOwner(block);
             if (owner.equals("[HEADS_NULL]")) {
                 SimpleSkull.sendMessage(sender, msgs.notSkull);
