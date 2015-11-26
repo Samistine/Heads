@@ -1,0 +1,11 @@
+name: Heads
+version: 1.4
+author: Logout400 [Updated by Samistine]
+main: com.gmail.logout400.Heads.Heads
+commands:
+   head:
+      description: Gives you your head.
+      usage: /<command>
+   heads:
+      description: Heads plugin help.
+      usage: /<command> help
