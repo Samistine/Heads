@@ -20,7 +20,7 @@ public class Heads extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        boolean configUpdated = false;
+        //boolean configUpdated = false;
 
         this.logger = new PluginLogger();
         this.manager = new SimpleConfigManager();
@@ -30,30 +30,30 @@ public class Heads extends JavaPlugin {
 
         this.config = this.manager.getNewConfig("config.yml");
         this.messages = this.manager.getNewConfig("lang.yml");
-        if (!this.messages.contains("player-offline")) {
-            this.messages.set("player-offline", "Player %player% not found !",
-                    "Player not found");
-            configUpdated = true;
-        }
-        if (!this.messages.contains("head-given")) {
-            this.messages.set("head-given",
-                    "You've just given %player% a head !",
-                    "When player give head");
-            configUpdated = true;
-        }
-        if (!this.messages.contains("head-received")) {
-            this.messages.set("head-received",
-                    "You've just received %owner% head !",
-                    "When player receive head");
-            configUpdated = true;
-        }
-        if (configUpdated) {
-            this.messages.saveConfig();
+        /*if (!this.messages.contains("player-offline")) {
+         this.messages.set("player-offline", "Player %player% not found !",
+         "Player not found");
+         configUpdated = true;
+         }
+         if (!this.messages.contains("head-given")) {
+         this.messages.set("head-given",
+         "You've just given %player% a head !",
+         "When player give head");
+         configUpdated = true;
+         }
+         if (!this.messages.contains("head-received")) {
+         this.messages.set("head-received",
+         "You've just received %owner% head !",
+         "When player receive head");
+         configUpdated = true;
+         }
+         if (configUpdated) {
+         this.messages.saveConfig();
 
-            this.logger.infoSpacer();
-            this.logger.info("Messages File updated ! (lang.yml)");
-            this.logger.infoHeader();
-        }
+         this.logger.infoSpacer();
+         this.logger.info("Messages File updated ! (lang.yml)");
+         this.logger.infoHeader();
+         }*/
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("heads").setExecutor(new HeadsCommand());
 
