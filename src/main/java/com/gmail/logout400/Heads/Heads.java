@@ -2,11 +2,9 @@ package com.gmail.logout400.Heads;
 
 import com.gmail.logout400.Heads.commands.HeadCommand;
 import com.gmail.logout400.Heads.commands.HeadsCommand;
-import com.gmail.logout400.Heads.listeners.HeadsUpdateListener;
 import com.gmail.logout400.Heads.listeners.SkullBreakListener;
 import com.gmail.logout400.Heads.listeners.SkullDropListener;
 import com.gmail.logout400.Heads.util.PluginLogger;
-import com.gmail.logout400.Heads.util.PluginVersion;
 import com.gmail.logout400.Heads.util.SimpleConfig;
 import com.gmail.logout400.Heads.util.SimpleConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +13,6 @@ public class Heads extends JavaPlugin {
 
     public static Heads INSTANCE;
     public PluginLogger logger;
-    public PluginVersion version;
     public SimpleConfigManager manager;
     public SimpleConfig config;
     public SimpleConfig messages;
@@ -62,25 +59,11 @@ public class Heads extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new SkullDropListener(), this);
         getServer().getPluginManager().registerEvents(new SkullBreakListener(), this);
-        getServer().getPluginManager().registerEvents(new HeadsUpdateListener(), this);
 
         boolean updateCheck = this.config.getBoolean("update-check");
-        this.version = new PluginVersion(
-                "http://dev.bukkit.org/server-mods/heads/files.rss");
-        if (updateCheck) {
-            if (this.version.updateNeeded()) {
-                String updateMsg = this.messages.getString("update-msg")
-                        .replaceAll("%version%", this.version.getVersion());
-
-                this.logger.infoSpacer();
-                this.logger.info("Get it: " + this.version.getLink());
-                this.logger.info(updateMsg);
-                this.logger.infoHeader();
-            }
-        }
     }
 
     public String getVersion() {
-        return getDescription().getVersion().toString();
+        return getDescription().getVersion();
     }
 }

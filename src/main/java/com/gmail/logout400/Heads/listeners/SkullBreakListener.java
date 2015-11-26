@@ -12,15 +12,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class SkullBreakListener implements Listener {
 
-    private final Heads plugin;
-
-    public SkullBreakListener() {
-        this.plugin = Heads.INSTANCE;
-    }
+    private final Heads plugin = Heads.INSTANCE;
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!plugin.config.getBoolean("creative-drop")) {
+        if (!getCreativeDrop()) {
             return;
         }
         Block block = event.getBlock();
@@ -42,5 +38,9 @@ public class SkullBreakListener implements Listener {
             }
             block.setType(Material.AIR);
         }
+    }
+
+    public boolean getCreativeDrop() {
+        return plugin.config.getBoolean("creative-drop");
     }
 }

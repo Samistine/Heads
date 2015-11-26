@@ -112,7 +112,6 @@ public class SimpleConfig {
     }
 
     public void saveConfig() {
-        String config = this.config.saveToString();
-        this.manager.saveConfig(config, this.file);
+        this.manager.saveConfig(this.config.saveToString(), this.file);
     }
 }

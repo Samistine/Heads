@@ -1,5 +1,6 @@
 package com.gmail.logout400.Heads.commands;
 
+import com.gmail.logout400.Heads.Config;
 import com.gmail.logout400.Heads.Heads;
 import com.gmail.logout400.Heads.SimpleSkull;
 import org.bukkit.block.Block;
@@ -11,18 +12,12 @@ import org.bukkit.entity.Player;
 public class HeadsCommand implements CommandExecutor {
 
     private final Heads plugin = Heads.INSTANCE;
-    String permissions = "&c" + plugin.messages.getString("permissions");
-    String unknownCommand = "&c" + plugin.messages.getString("unknown-cmd");
-    String pluginVersion = "&7" + plugin.messages.getString("plugin-version");
-    String reloaded = "&a" + plugin.messages.getString("reloaded");
-    String consoleSender = "&c" + plugin.messages.getString("console-msg");
-    String skullInfo = "&a" + plugin.messages.getString("skull-info");
-    String notSkull = "&c" + plugin.messages.getString("not-skull");
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Config.Messages msgs = Config.getMessages();
         if (args.length != 1) {
-            SimpleSkull.sendMessage(sender, unknownCommand);
+            SimpleSkull.sendMessage(sender, msgs.unknownCommand);
             return true;
         }
         if (args[0].equalsIgnoreCase("help")) {
@@ -37,37 +32,37 @@ public class HeadsCommand implements CommandExecutor {
             SimpleSkull.customMessage(sender, "&e-------------------[ &b&lby Logout400&r&e ]------------------");
         } else if (args[0].equalsIgnoreCase("version")) {
             if (!sender.hasPermission("heads.version")) {
-                SimpleSkull.sendMessage(sender, permissions);
+                SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
-            SimpleSkull.sendMessage(sender, pluginVersion.replaceAll("%version%", "&e" + plugin.getVersion() + "&a"));
+            SimpleSkull.sendMessage(sender, msgs.pluginVersion.replaceAll("%version%", "&e" + this.plugin.getVersion() + "&a"));
         } else if (args[0].equalsIgnoreCase("reload")) {
             if (!sender.hasPermission("heads.reload")) {
-                SimpleSkull.sendMessage(sender, permissions);
+                SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
-            plugin.config.reloadConfig();
-            plugin.messages.reloadConfig();
+            this.plugin.config.reloadConfig();
+            this.plugin.messages.reloadConfig();
 
-            SimpleSkull.sendMessage(sender, reloaded);
+            SimpleSkull.sendMessage(sender, msgs.reloaded);
         } else if (args[0].equalsIgnoreCase("nick")) {
             if (!sender.hasPermission("heads.nick")) {
-                SimpleSkull.sendMessage(sender, permissions);
+                SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
             if (!(sender instanceof Player)) {
-                SimpleSkull.sendMessage(sender, consoleSender);
+                SimpleSkull.sendMessage(sender, msgs.consoleSender);
                 return true;
             }
             Block block = ((Player) sender).getTargetBlock(null, 200);
             String owner = SimpleSkull.getSkullBlockOwner(block);
             if (owner.equals("[HEADS_NULL]")) {
-                SimpleSkull.sendMessage(sender, notSkull);
+                SimpleSkull.sendMessage(sender, msgs.notSkull);
             } else {
-                SimpleSkull.sendMessage(sender, skullInfo.replaceAll("%owner%", "&7" + owner + "&a"));
+                SimpleSkull.sendMessage(sender, msgs.skullInfo.replaceAll("%owner%", "&7" + owner + "&a"));
             }
         } else {
-            SimpleSkull.sendMessage(sender, unknownCommand);
+            SimpleSkull.sendMessage(sender, msgs.unknownCommand);
             return true;
         }
         return true;
