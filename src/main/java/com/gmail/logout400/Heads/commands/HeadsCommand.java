@@ -2,7 +2,7 @@ package com.gmail.logout400.Heads.commands;
 
 import com.gmail.logout400.Heads.Config;
 import com.gmail.logout400.Heads.Heads;
-import com.gmail.logout400.Heads.SimpleSkull;
+import com.gmail.logout400.Heads.util.SimpleSkull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

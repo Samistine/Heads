@@ -1,4 +1,4 @@
-package com.gmail.logout400.Heads;
+package com.gmail.logout400.Heads.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

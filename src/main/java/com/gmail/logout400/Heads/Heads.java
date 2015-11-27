@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Heads extends JavaPlugin {
 
     public static Heads INSTANCE;
-    public PluginLogger logger;
+    public PluginLogger logger = new PluginLogger();
 
     protected YamlConfiguration yLang;
 
@@ -23,21 +23,18 @@ public class Heads extends JavaPlugin {
         }
         yLang = YamlConfiguration.loadConfiguration(fLang);
     }
-    
+
     public void reload() {
         reloadConfig();
         loadLanguageConfig();
     }
-    
 
     @Override
     public void onEnable() {
         saveDefaultConfig(); //Copies over config.yml, if non-existent
         loadLanguageConfig();
-        
-        INSTANCE = this;
 
-        this.logger = new PluginLogger();
+        INSTANCE = this;
 
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("heads").setExecutor(new HeadsCommand());

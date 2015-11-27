@@ -1,7 +1,7 @@
 package com.gmail.logout400.Heads.listeners;
 
 import com.gmail.logout400.Heads.Heads;
-import com.gmail.logout400.Heads.SimpleSkull;
+import com.gmail.logout400.Heads.util.SimpleSkull;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;

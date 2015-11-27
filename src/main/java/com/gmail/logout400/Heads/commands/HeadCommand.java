@@ -1,7 +1,7 @@
 package com.gmail.logout400.Heads.commands;
 
 import com.gmail.logout400.Heads.Config;
-import com.gmail.logout400.Heads.SimpleSkull;
+import com.gmail.logout400.Heads.util.SimpleSkull;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
