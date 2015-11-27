@@ -5,31 +5,41 @@ import com.gmail.logout400.Heads.commands.HeadsCommand;
 import com.gmail.logout400.Heads.listeners.SkullBreakListener;
 import com.gmail.logout400.Heads.listeners.SkullDropListener;
 import com.gmail.logout400.Heads.util.PluginLogger;
-import com.gmail.logout400.Heads.util.SimpleConfig;
-import com.gmail.logout400.Heads.util.SimpleConfigManager;
+import java.io.File;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Heads extends JavaPlugin {
 
     public static Heads INSTANCE;
     public PluginLogger logger;
-    public SimpleConfigManager manager;
-    public SimpleConfig config;
-    public SimpleConfig messages;
+
+    protected YamlConfiguration yLang;
+
+    private void loadLanguageConfig() {
+        File fLang = new File(getDataFolder(), "lang.yml");
+        if (!fLang.exists()) {
+            saveResource("lang.yml", false);
+        }
+        yLang = YamlConfiguration.loadConfiguration(fLang);
+    }
+    
+    public void reload() {
+        reloadConfig();
+        loadLanguageConfig();
+    }
+    
 
     @Override
     public void onEnable() {
+        saveDefaultConfig(); //Copies over config.yml, if non-existent
+        loadLanguageConfig();
+        
         INSTANCE = this;
         //boolean configUpdated = false;
 
         this.logger = new PluginLogger();
-        this.manager = new SimpleConfigManager();
 
-        this.manager.prepareFile("lang.yml", "lang.yml");
-        this.manager.prepareFile("config.yml", "config.yml");
-
-        this.config = this.manager.getNewConfig("config.yml");
-        this.messages = this.manager.getNewConfig("lang.yml");
         /*if (!this.messages.contains("player-offline")) {
          this.messages.set("player-offline", "Player %player% not found !",
          "Player not found");

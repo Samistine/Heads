@@ -45,8 +45,7 @@ public class HeadsCommand implements CommandExecutor {
                 SimpleSkull.sendMessage(sender, msgs.permissions);
                 return true;
             }
-            this.plugin.config.reloadConfig();
-            this.plugin.messages.reloadConfig();
+            plugin.reload();
 
             SimpleSkull.sendMessage(sender, msgs.reloaded);
         } else if (args[0].equalsIgnoreCase("nick")) {

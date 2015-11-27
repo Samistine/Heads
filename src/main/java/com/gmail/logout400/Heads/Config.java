@@ -5,7 +5,7 @@
  */
 package com.gmail.logout400.Heads;
 
-import com.gmail.logout400.Heads.util.SimpleConfig;
+import org.bukkit.configuration.Configuration;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.gmail.logout400.Heads.util.SimpleConfig;
 public class Config {
 
     public static Messages getMessages() {
-        SimpleConfig c = Heads.INSTANCE.messages;
+        Configuration c = Heads.INSTANCE.yLang;
         return new Messages(
                 c.getString("head-added"),
                 c.getString("head-given"),

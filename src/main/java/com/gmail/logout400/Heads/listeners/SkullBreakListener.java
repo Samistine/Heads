@@ -41,6 +41,6 @@ public class SkullBreakListener implements Listener {
     }
 
     public boolean getCreativeDrop() {
-        return plugin.config.getBoolean("creative-drop");
+        return plugin.getConfig().getBoolean("creative-drop");
     }
 }

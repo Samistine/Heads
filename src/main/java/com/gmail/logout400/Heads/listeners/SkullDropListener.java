@@ -2,8 +2,8 @@ package com.gmail.logout400.Heads.listeners;
 
 import com.gmail.logout400.Heads.Heads;
 import com.gmail.logout400.Heads.SimpleSkull;
-import com.gmail.logout400.Heads.util.SimpleConfig;
 import java.util.Random;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,10 +13,10 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class SkullDropListener implements Listener {
 
-    private final SimpleConfig config;
+    private final Configuration config;
 
     public SkullDropListener() {
-        this.config = Heads.INSTANCE.config;
+        this.config = Heads.INSTANCE.getConfig();
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
