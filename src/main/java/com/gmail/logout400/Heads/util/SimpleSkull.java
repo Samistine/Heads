@@ -1,18 +1,16 @@
 package com.gmail.logout400.Heads.util;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
-import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class SimpleSkull {
 
     public static ItemStack getNamedSkull(String nick) {
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        ItemStack skull = getSkull(SkullType.PLAYER);
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
 
         meta.setOwner(nick);
@@ -21,62 +19,28 @@ public class SimpleSkull {
         return skull;
     }
 
-    public static ItemStack getSkull(String type) {
-        if (type.equalsIgnoreCase("PLAYER")) {
-            return new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-        }
-        if (type.equalsIgnoreCase("ZOMBIE")) {
-            return new ItemStack(Material.SKULL_ITEM, 1, (short) 2);
-        }
-        if (type.equalsIgnoreCase("WITHER")) {
-            return new ItemStack(Material.SKULL_ITEM, 1, (short) 1);
-        }
-        if (type.equalsIgnoreCase("CREEPER")) {
-            return new ItemStack(Material.SKULL_ITEM, 1, (short) 4);
-        }
-        if (type.equalsIgnoreCase("SKELETON")) {
-            return new ItemStack(Material.SKULL_ITEM, 1);
-        }
-        return null;
+    public static ItemStack getSkull(SkullType type) {
+        return new ItemStack(Material.SKULL_ITEM, 1, (short) type.ordinal());
     }
 
     public static String getSkullBlockOwner(Block block) {
         if (block.getType() == Material.SKULL) {
-            Skull skull = (Skull) block.getState();
-            SkullType type = skull.getSkullType();
-            if (type == SkullType.PLAYER) {
-                String owner = skull.getOwner();
-                if (skull.hasOwner()) {
-                    return owner;
-                } else {
-                    return "Steve";
-                }
-            }
+            final Skull skull = (Skull) block.getState();
+            final SkullType type = skull.getSkullType();
 
-            if (type == SkullType.WITHER) {
-                return "Wither";
-            }
-            if (type == SkullType.ZOMBIE) {
-                return "Zombie";
-            }
-            if (type == SkullType.CREEPER) {
-                return "Creeper";
-            }
-            if (type == SkullType.SKELETON) {
-                return "Skeleton";
-            } else {
-                return "[HEADS_NULL]";
+            switch (type) {
+                case PLAYER:
+                    String owner = skull.getOwner();
+                    if (skull.hasOwner()) {
+                        return owner;
+                    } else {
+                        return "Steve";
+                    }
+                default:
+                    return type.toString();
             }
         }
         return "[HEADS_NULL]";
     }
 
-    public static void sendMessage(CommandSender sender, String message) {
-        String msg = "&e[Heads]&r " + message;
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-    }
-
-    public static void customMessage(CommandSender sender, String message) {
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-    }
 }

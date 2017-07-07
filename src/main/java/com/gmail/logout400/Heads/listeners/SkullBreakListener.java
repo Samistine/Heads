@@ -1,10 +1,10 @@
 package com.gmail.logout400.Heads.listeners;
 
-import com.gmail.logout400.Heads.Heads;
 import com.gmail.logout400.Heads.util.SimpleSkull;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
+import org.bukkit.block.Skull;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,26 +21,23 @@ public class SkullBreakListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!getCreativeDrop()) {
-            return;
-        }
-        Block block = event.getBlock();
+        if (!getCreativeDrop()) return;
+
+        final Block block = event.getBlock();
         if (block.getType() == Material.SKULL) {
-            World world = block.getWorld();
-            String type = SimpleSkull.getSkullBlockOwner(block);
-            if (type.equalsIgnoreCase("STEVE")) {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getSkull("PLAYER"));
-            } else if (type.equalsIgnoreCase("ZOMBIE")) {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getSkull("ZOMBIE"));
-            } else if (type.equalsIgnoreCase("WITHER")) {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getSkull("WITHER"));
-            } else if (type.equalsIgnoreCase("CREEPER")) {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getSkull("CREEPER"));
-            } else if (type.equalsIgnoreCase("SKELETON")) {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getSkull("SKELETON"));
-            } else {
-                world.dropItemNaturally(block.getLocation(), SimpleSkull.getNamedSkull(type));
+            final Skull skull = (Skull) block.getState();
+
+            SkullType type = skull.getSkullType();
+            switch (type) {
+                case PLAYER:
+                    String name = skull.getOwningPlayer().getName();
+                    block.getWorld().dropItemNaturally(block.getLocation(), SimpleSkull.getNamedSkull(name));
+                    break;
+                default:
+                    block.getWorld().dropItemNaturally(block.getLocation(), SimpleSkull.getSkull(type));
+                    break;
             }
+
             block.setType(Material.AIR);
         }
     }
