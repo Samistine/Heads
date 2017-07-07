@@ -5,6 +5,7 @@ import com.gmail.logout400.Heads.util.SimpleSkull;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,7 +13,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class SkullBreakListener implements Listener {
 
-    private final Heads plugin = Heads.INSTANCE;
+    private final Configuration config;
+
+    public SkullBreakListener(Configuration config) {
+        this.config = config;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
@@ -41,6 +46,6 @@ public class SkullBreakListener implements Listener {
     }
 
     public boolean getCreativeDrop() {
-        return plugin.getConfig().getBoolean("creative-drop");
+        return config.getBoolean("creative-drop");
     }
 }

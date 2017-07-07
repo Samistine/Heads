@@ -1,6 +1,5 @@
 package com.gmail.logout400.Heads;
 
-import com.gmail.logout400.Heads.commands.HeadCommand;
 import com.gmail.logout400.Heads.commands.HeadsCommand;
 import com.gmail.logout400.Heads.listeners.SkullBreakListener;
 import com.gmail.logout400.Heads.listeners.SkullDropListener;
@@ -36,11 +35,12 @@ public class Heads extends JavaPlugin {
 
         INSTANCE = this;
 
-        getCommand("head").setExecutor(new HeadCommand());
-        getCommand("heads").setExecutor(new HeadsCommand());
+        HeadsCommand headsCommand = new HeadsCommand();
+        getCommand("head").setExecutor(headsCommand);
+        getCommand("heads").setExecutor(headsCommand);
 
-        getServer().getPluginManager().registerEvents(new SkullDropListener(), this);
-        getServer().getPluginManager().registerEvents(new SkullBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new SkullDropListener(getConfig()), this);
+        getServer().getPluginManager().registerEvents(new SkullBreakListener(getConfig()), this);
     }
 
     public String getVersion() {

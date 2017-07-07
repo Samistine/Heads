@@ -15,8 +15,8 @@ public class SkullDropListener implements Listener {
 
     private final Configuration config;
 
-    public SkullDropListener() {
-        this.config = Heads.INSTANCE.getConfig();
+    public SkullDropListener(Configuration config) {
+        this.config = config;
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -35,29 +35,22 @@ public class SkullDropListener implements Listener {
             if (random.nextInt(100) <= chance) {
                 event.getDrops().add(SimpleSkull.getNamedSkull(player.getName()));
             }
-        } else if (entity == EntityType.ZOMBIE) {
-            if (!mobdrop) {
-                return;
-            }
-            int chance = config.getInt("zombie-chance");
-            if (random.nextInt(100) <= chance) {
-                event.getDrops().add(SimpleSkull.getSkull("ZOMBIE"));
-            }
-        } else if (entity == EntityType.CREEPER) {
-            if (!mobdrop) {
-                return;
-            }
-            int chance = config.getInt("creeper-chance");
-            if (random.nextInt(100) <= chance) {
-                event.getDrops().add(SimpleSkull.getSkull("CREEPER"));
-            }
-        } else if (entity == EntityType.SKELETON) {
-            if (!mobdrop) {
-                return;
-            }
-            int chance = config.getInt("skeleton-chance");
-            if (random.nextInt(100) <= chance) {
-                event.getDrops().add(SimpleSkull.getSkull("SKELETON"));
+        } else if (mobdrop) {
+            if (entity == EntityType.ZOMBIE) {
+                int chance = config.getInt("zombie-chance");
+                if (random.nextInt(100) <= chance) {
+                    event.getDrops().add(SimpleSkull.getSkull("ZOMBIE"));
+                }
+            } else if (entity == EntityType.CREEPER) {
+                int chance = config.getInt("creeper-chance");
+                if (random.nextInt(100) <= chance) {
+                    event.getDrops().add(SimpleSkull.getSkull("CREEPER"));
+                }
+            } else if (entity == EntityType.SKELETON) {
+                int chance = config.getInt("skeleton-chance");
+                if (random.nextInt(100) <= chance) {
+                    event.getDrops().add(SimpleSkull.getSkull("SKELETON"));
+                }
             }
         }
     }
